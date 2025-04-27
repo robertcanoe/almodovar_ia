@@ -1,0 +1,16 @@
+{
+  "name": "Asistente Virtual de Almodóvar del Río",
+  "short_name": "Almodóvar IA",
+  "description": "Asistente virtual oficial de Almodóvar del Río con información sobre el pueblo, servicios municipales y turismo.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a1a",
+  "theme_color": "#1a1a1a",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
