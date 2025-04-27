@@ -1,0 +1,206 @@
+---
+---
+
+<section class="chat-container">
+  <div id="chat-output" class="chat-output">
+    <div class="welcome-message bot-message">
+      ¡Hola! Soy el asistente virtual de Almodóvar del Río. Puedes preguntarme sobre:
+      <ul>
+        <li>🏰 El Castillo y monumentos</li>
+        <li>🎉 Fiestas y eventos</li>
+        <li>📍 Cómo llegar y ubicación</li>
+        <li>🏛️ Servicios municipales</li>
+        <li>🎨 Cultura y turismo</li>
+      </ul>
+    </div>
+  </div>
+  <form id="chat-form" class="chat-form">
+    <div class="input-wrapper">
+      <input 
+        type="text" 
+        id="chat-input" 
+        placeholder="Pregúntame sobre Almodóvar del Río..." 
+        aria-label="Tu pregunta"
+        required
+        autocomplete="off"
+      />
+      <div id="typing-indicator" class="typing-indicator hidden">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <button type="submit" aria-label="Enviar mensaje">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="22" y1="2" x2="11" y2="13"></line>
+        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+      </svg>
+    </button>
+  </form>
+</section>
+
+<script>
+  const form = document.getElementById('chat-form') as HTMLFormElement;
+  const input = document.getElementById('chat-input') as HTMLInputElement;
+  const output = document.getElementById('chat-output') as HTMLDivElement;
+  const typingIndicator = document.getElementById('typing-indicator') as HTMLDivElement;
+
+  // Función para agregar mensaje con animación
+  function addMessage(content: string, type: 'user' | 'bot' | 'error') {
+    const message = document.createElement('div');
+    message.className = `${type}-message message-hidden`;
+    
+    if (type === 'error') {
+      message.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        <span>${content}</span>
+      `;
+    } else {
+      message.textContent = content;
+    }
+    
+    output.appendChild(message);
+    requestAnimationFrame(() => message.classList.remove('message-hidden'));
+    output.scrollTop = output.scrollHeight;
+  }
+
+  // Función para mostrar/ocultar indicador de escritura
+  function toggleTyping(show: boolean) {
+    typingIndicator.classList.toggle('hidden', !show);
+    input.disabled = show;
+    const button = form.querySelector('button');
+    if (button) button.disabled = show;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const pregunta = input.value.trim();
+    if (!pregunta) return;
+
+    // Agregar mensaje del usuario
+    addMessage(pregunta, 'user');
+    input.value = '';
+    
+    // Mostrar indicador de escritura
+    toggleTyping(true);
+
+    try {
+      const response = await fetch('/api/pregunta', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ pregunta }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Error al procesar la pregunta');
+      }
+
+      // Agregar respuesta del bot
+      addMessage(data.respuesta, 'bot');
+    } catch (error: any) {
+      addMessage(error.message || 'Ha ocurrido un error al procesar tu pregunta', 'error');
+    } finally {
+      toggleTyping(false);
+      input.focus();
+    }
+  });
+
+  // Manejar Enter para enviar y Shift+Enter para nueva línea
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      form.requestSubmit();
+    }
+  });
+</script>
+
+<style>
+  .welcome-message {
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .welcome-message ul {
+    margin-top: 0.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .welcome-message li {
+    margin: 0.25rem 0;
+  }
+
+  .input-wrapper {
+    position: relative;
+    flex: 1;
+  }
+
+  .typing-indicator {
+    position: absolute;
+    top: -2rem;
+    left: 1rem;
+    display: flex;
+    gap: 4px;
+    transition: opacity 0.3s ease;
+  }
+
+  .typing-indicator.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .typing-indicator span {
+    width: 8px;
+    height: 8px;
+    background: #1a1a1a;
+    border-radius: 50%;
+    animation: bounce 0.8s infinite;
+  }
+
+  .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+  .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+  .message-hidden {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  .user-message,
+  .bot-message,
+  .error {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .error {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  button svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+</style>

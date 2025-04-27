@@ -1,0 +1,34 @@
+[
+  {
+    "keywords": ["castillo", "fortaleza", "castle", "game of thrones", "juego de tronos", "highgarden", "altoroca"],
+    "respuesta": "El Castillo de Almodóvar del Río es una imponente fortaleza medieval del siglo VIII, reconstruida en el siglo XIV. Es uno de los castillos mejor conservados de España y alcanzó fama internacional al ser elegido como localización para la serie Juego de Tronos, donde representó Altoroca (Highgarden). El castillo está abierto a visitas todo el año y ofrece visitas guiadas, eventos temáticos y unas vistas espectaculares del Valle del Guadalquivir. Para más información y reservas, puedes visitar www.castillodealmodovar.com."
+  },
+  {
+    "keywords": ["horario ayuntamiento", "oficinas ayuntamiento", "atención ciudadano", "tramites", "gestiones"],
+    "respuesta": "El Ayuntamiento de Almodóvar del Río está abierto de lunes a viernes de 9:00 a 14:00 horas. Para atención ciudadana, puedes llamar al 957 713 602 o acudir presencialmente a Plaza de la Constitución, 4. También puedes realizar muchos trámites online a través de la sede electrónica en www.aytoalmodovardelrio.es. Para emergencias fuera del horario laboral, contacta con la Policía Local al 957 713 102."
+  },
+  {
+    "keywords": ["ubicación", "donde esta", "como llegar", "distancia cordoba", "transporte", "tren", "autobus"],
+    "respuesta": "Almodóvar del Río se encuentra a 22 kilómetros de Córdoba capital. Puedes llegar fácilmente por:\n- Coche: Toma la A-431 dirección Palma del Río\n- Tren: Línea Córdoba-Sevilla (15 minutos desde Córdoba)\n- Autobús: Servicio regular desde la estación de Córdoba\nEl pueblo está situado en un enclave privilegiado junto al río Guadalquivir, con el Castillo coronando la colina que domina la población."
+  },
+  {
+    "keywords": ["fiestas", "festividades", "eventos importantes", "romeria", "semana santa", "feria"],
+    "respuesta": "Principales celebraciones en Almodóvar del Río:\n- Feria Real (septiembre): La fiesta más importante del pueblo\n- Romería de Nuestra Señora de Gracia y San Sebastián (abril): Tradicional romería en la ermita\n- Fiestas patronales de la Virgen del Rosario (octubre): Procesiones y eventos culturales\n- Semana Santa: Destacan las procesiones del Jueves y Viernes Santo\n- Día de Andalucía (28 febrero): Actividades culturales y deportivas\n- Festival Medieval del Castillo (julio): Recreaciones históricas y mercado medieval"
+  },
+  {
+    "keywords": ["turismo", "que ver", "visitar", "atracciones", "monumentos"],
+    "respuesta": "Lugares de interés en Almodóvar del Río:\n1. Castillo (siglo VIII-XIV): Visitas guiadas y eventos temáticos\n2. Iglesia de la Inmaculada Concepción (siglo XVIII)\n3. Puente Romano y restos arqueológicos\n4. Ermita de Nuestra Señora de Gracia\n5. Rutas de senderismo por la Sierra\n6. Paseo fluvial del Guadalquivir\nDestaca también su gastronomía tradicional, con platos como el salmorejo cordobés, rabo de toro y pasteles de miel."
+  },
+  {
+    "keywords": ["deportes", "instalaciones deportivas", "actividades deportivas", "piscina"],
+    "respuesta": "Almodóvar del Río cuenta con excelentes instalaciones deportivas:\n- Polideportivo Municipal con pistas multideporte\n- Piscina Municipal (abierta en verano)\n- Campo de Fútbol Municipal\n- Pistas de pádel y tenis\n- Gimnasio Municipal\nAdemás, se organizan eventos deportivos regulares y escuelas deportivas para todas las edades."
+  },
+  {
+    "keywords": ["historia", "origen", "fundacion", "romano", "arabe", "musulman"],
+    "respuesta": "Almodóvar del Río tiene una rica historia que se remonta a la época romana, cuando era conocida como 'Carbula'. El nombre actual proviene del árabe 'Al-Mudawwar' (el redondo), en referencia a la colina donde se asienta el Castillo. La fortaleza fue construida por los musulmanes en el siglo VIII y reconstruida en el XIV. La ciudad fue reconquistada por Fernando III el Santo en 1240, jugando un papel estratégico en el control del Valle del Guadalquivir."
+  },
+  {
+    "keywords": ["restaurantes", "bares", "comer", "tapas", "gastronomia"],
+    "respuesta": "La gastronomía de Almodóvar del Río es rica en sabores tradicionales. Algunos restaurantes recomendados:\n- Casa Pepe: Cocina tradicional cordobesa\n- Mesón del Castillo: Vistas al castillo y platos típicos\n- Bar Central: Famoso por sus tapas\n- Taberna La Plaza: Ambiente familiar y comida casera\nPlatos típicos: salmorejo, rabo de toro, flamenquín y pasteles de miel."
+  }
+]

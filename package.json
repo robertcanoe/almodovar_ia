@@ -1,14 +1,16 @@
 {
-  "name": "square-series",
-  "type": "module",
-  "version": "0.0.1",
+  "name": "almodovar-assistant",
+  "version": "1.0.0",
   "scripts": {
     "dev": "astro dev",
+    "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "preview": "astro preview"
   },
   "dependencies": {
-    "astro": "^5.7.5"
+    "@types/node": "^22.15.2",
+    "astro": "^4.15.9",
+    "openai": "^4.96.0",
+    "typescript": "^5.6.2"
   }
 }
