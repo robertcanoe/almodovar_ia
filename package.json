@@ -1,16 +1,33 @@
 {
-  "name": "almodovar-assistant",
+  "name": "almodovar-ia",
+  "type": "module",
   "version": "1.0.0",
+  "private": true,
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "astro": "astro",
+    "setup": "./setup.sh",
+    "type-check": "astro check && tsc --noEmit"
   },
   "dependencies": {
-    "@types/node": "^22.15.2",
-    "astro": "^4.15.9",
-    "openai": "^4.96.0",
-    "typescript": "^5.6.2"
+    "@astrojs/node": "^6.0.0",
+    "@types/dompurify": "^3.0.5",
+    "@types/markdown-it": "^14.1.2",
+    "astro": "^3.0.0",
+    "dompurify": "^3.2.5",
+    "markdown-it": "^14.1.0",
+    "marked": "^5.1.1",
+    "openai": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/marked": "^5.0.1",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
   }
 }
