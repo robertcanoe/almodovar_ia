@@ -1,48 +1,85 @@
-# Astro Starter Kit: Basics
+# 🏰 Asistente Virtual de Almodóvar del Río
 
-```sh
-npm create astro@latest -- --template basics
-```
+El Asistente Virtual de Almodóvar del Río es una innovadora herramienta de inteligencia artificial diseñada para proporcionar información detallada y actualizada sobre nuestro hermoso municipio. Este proyecto nace con el objetivo de acercar la historia, cultura y servicios de Almodóvar del Río tanto a vecinos como a visitantes.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+![Castillo de Almodóvar](public/castillo-background.jpg)
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 🤖 ¿Qué es?
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+Un asistente virtual inteligente que:
+- Responde preguntas sobre Almodóvar del Río en tiempo real
+- Proporciona información actualizada sobre servicios municipales
+- Ayuda a conocer la historia y cultura local
+- Informa sobre eventos y actividades
+- Ofrece datos útiles para turistas y residentes
 
-## 🚀 Project Structure
+## 💡 ¿Qué puedes preguntar?
 
-Inside of your Astro project, you'll see the following folders and files:
+El asistente puede responder a preguntas sobre:
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+### 🏛️ Historia y Patrimonio
+- Historia del municipio
+- El Castillo de Almodóvar y su aparición en Juego de Tronos
+- Monumentos y lugares de interés
+- Yacimientos arqueológicos
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+### 📅 Eventos y Cultura
+- Feria Real y festividades
+- Eventos culturales
+- Romería y celebraciones religiosas
+- Actividades municipales
 
-## 🧞 Commands
+### 🏛️ Servicios Municipales
+- Horarios del Ayuntamiento
+- Trámites administrativos
+- Instalaciones deportivas
+- Servicios sociales
 
-All commands are run from the root of the project, from a terminal:
+### 🍽️ Turismo y Ocio
+- Restaurantes y gastronomía local
+- Rutas turísticas
+- Alojamientos
+- Actividades de ocio
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+### 🚌 Información Práctica
+- Cómo llegar
+- Transporte público
+- Aparcamientos
+- Servicios básicos
 
-## 👀 Want to learn more?
+## 🌟 Características Destacadas
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- **Respuestas Instantáneas**: Obtén información al momento sobre cualquier aspecto del municipio.
+- **Información Actualizada**: Datos verificados y actualizados regularmente.
+- **Disponibilidad 24/7**: Acceso a información en cualquier momento.
+- **Diseño Accesible**: Interfaz fácil de usar para todos los usuarios.
+- **Multilingüe**: Capacidad para entender y responder en varios idiomas.
+
+## 📱 Accesibilidad
+
+El asistente está disponible:
+- A través de cualquier navegador web
+- Optimizado para móviles y tablets
+- Funciona sin necesidad de instalación
+- Accesible para personas con diversidad funcional
+
+## 🤝 Un Proyecto del Ayuntamiento
+
+Este asistente virtual es una iniciativa del Ayuntamiento de Almodóvar del Río para:
+- Modernizar la atención ciudadana
+- Promover el turismo local
+- Facilitar el acceso a la información municipal
+- Preservar y difundir nuestra historia y cultura
+
+## 📞 Contacto
+
+Para cualquier consulta o sugerencia sobre el asistente virtual:
+
+**Ayuntamiento de Almodóvar del Río**
+- 📍 Plaza de la Constitución, 4
+- 📞 957 713 602
+- 🌐 [www.aytoalmodovardelrio.es](https://www.aytoalmodovardelrio.es)
+
+---
+
+© 2025 Ayuntamiento de Almodóvar del Río. Todos los derechos reservados.
