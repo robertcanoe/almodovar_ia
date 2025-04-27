@@ -25,9 +25,12 @@
         autocomplete="off"
       />
       <div id="typing-indicator" class="typing-indicator hidden">
-        <span></span>
-        <span></span>
-        <span></span>
+        <div class="typing-bubble">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <span class="typing-text">Pensando...</span>
       </div>
     </div>
     <button type="submit" aria-label="Enviar mensaje">
@@ -40,85 +43,161 @@
 </section>
 
 <script>
-  const form = document.getElementById('chat-form') as HTMLFormElement;
-  const input = document.getElementById('chat-input') as HTMLInputElement;
-  const output = document.getElementById('chat-output') as HTMLDivElement;
-  const typingIndicator = document.getElementById('typing-indicator') as HTMLDivElement;
-
-  // Función para agregar mensaje con animación
-  function addMessage(content: string, type: 'user' | 'bot' | 'error') {
-    const message = document.createElement('div');
-    message.className = `${type}-message message-hidden`;
-    
-    if (type === 'error') {
-      message.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="10"></circle>
-          <line x1="12" y1="8" x2="12" y2="12"></line>
-          <line x1="12" y1="16" x2="12.01" y2="16"></line>
-        </svg>
-        <span>${content}</span>
-      `;
-    } else {
-      message.textContent = content;
-    }
-    
-    output.appendChild(message);
-    requestAnimationFrame(() => message.classList.remove('message-hidden'));
-    output.scrollTop = output.scrollHeight;
-  }
-
-  // Función para mostrar/ocultar indicador de escritura
-  function toggleTyping(show: boolean) {
-    typingIndicator.classList.toggle('hidden', !show);
-    input.disabled = show;
-    const button = form.querySelector('button');
-    if (button) button.disabled = show;
-  }
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const pregunta = input.value.trim();
-    if (!pregunta) return;
-
-    // Agregar mensaje del usuario
-    addMessage(pregunta, 'user');
-    input.value = '';
-    
-    // Mostrar indicador de escritura
-    toggleTyping(true);
-
-    try {
-      const response = await fetch('/api/pregunta', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ pregunta }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Error al procesar la pregunta');
-      }
-
-      // Agregar respuesta del bot
-      addMessage(data.respuesta, 'bot');
-    } catch (error: any) {
-      addMessage(error.message || 'Ha ocurrido un error al procesar tu pregunta', 'error');
-    } finally {
-      toggleTyping(false);
-      input.focus();
-    }
+  import MarkdownIt from 'markdown-it';
+  import createDOMPurify from 'dompurify';
+  
+  const DOMPurify = createDOMPurify(window);
+  const md = new MarkdownIt({
+    html: true,
+    breaks: true,
+    linkify: true
   });
 
-  // Manejar Enter para enviar y Shift+Enter para nueva línea
-  input.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      form.requestSubmit();
+  interface Message {
+    type: 'user' | 'bot' | 'error';
+    content: string;
+    timestamp: number;
+  }
+
+  const STORAGE_KEY = 'almodovar-chat-history';
+  const MAX_HISTORY = 50;
+
+  class ChatManager {
+    private form: HTMLFormElement;
+    private input: HTMLInputElement;
+    private output: HTMLDivElement;
+    private typingIndicator: HTMLDivElement;
+    private history: Message[] = [];
+
+    constructor() {
+      this.form = document.getElementById('chat-form') as HTMLFormElement;
+      this.input = document.getElementById('chat-input') as HTMLInputElement;
+      this.output = document.getElementById('chat-output') as HTMLDivElement;
+      this.typingIndicator = document.getElementById('typing-indicator') as HTMLDivElement;
+
+      this.loadHistory();
+      this.setupEventListeners();
     }
+
+    private setupEventListeners() {
+      this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+      this.input.addEventListener('keydown', (e) => this.handleKeydown(e));
+      window.addEventListener('beforeunload', () => this.saveHistory());
+    }
+
+    private async handleSubmit(e: Event) {
+      e.preventDefault();
+      const pregunta = this.input.value.trim();
+      if (!pregunta) return;
+
+      this.addMessage(pregunta, 'user');
+      this.input.value = '';
+      
+      this.toggleTyping(true);
+
+      try {
+        const response = await fetch('/api/pregunta', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ pregunta }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || 'Error al procesar la pregunta');
+        }
+
+        this.addMessage(data.respuesta, 'bot');
+      } catch (error: any) {
+        this.addMessage(error.message || 'Ha ocurrido un error al procesar tu pregunta', 'error');
+      } finally {
+        this.toggleTyping(false);
+        this.input.focus();
+      }
+    }
+
+    private handleKeydown(e: KeyboardEvent) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        this.form.requestSubmit();
+      }
+    }
+
+    private addMessage(content: string, type: Message['type']) {
+      const message: Message = {
+        type,
+        content,
+        timestamp: Date.now()
+      };
+
+      this.history.push(message);
+      if (this.history.length > MAX_HISTORY) {
+        this.history.shift();
+      }
+
+      const messageEl = document.createElement('div');
+      messageEl.className = `${type}-message message-hidden`;
+      
+      if (type === 'error') {
+        messageEl.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <span>${this.escapeHtml(content)}</span>
+        `;
+      } else {
+        // Procesar Markdown y enlaces
+        const processed = this.processContent(content);
+        messageEl.innerHTML = processed;
+      }
+      
+      this.output.appendChild(messageEl);
+      requestAnimationFrame(() => messageEl.classList.remove('message-hidden'));
+      this.output.scrollTop = this.output.scrollHeight;
+    }
+
+    private processContent(content: string): string {
+      // Convertir Markdown a HTML y sanitizar
+      const html = md.render(content);
+      return DOMPurify.sanitize(html);
+    }
+
+    private escapeHtml(text: string): string {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    private toggleTyping(show: boolean) {
+      this.typingIndicator.classList.toggle('hidden', !show);
+      this.input.disabled = show;
+      const button = this.form.querySelector('button');
+      if (button) button.disabled = show;
+    }
+
+    private loadHistory() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          const messages: Message[] = JSON.parse(saved);
+          messages.forEach(msg => this.addMessage(msg.content, msg.type));
+        } catch (e) {
+          console.error('Error loading chat history:', e);
+        }
+      }
+    }
+
+    private saveHistory() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.history));
+    }
+  }
+
+  // Inicializar el chat cuando el DOM esté listo
+  document.addEventListener('DOMContentLoaded', () => {
+    new ChatManager();
   });
 </script>
 
@@ -144,11 +223,25 @@
 
   .typing-indicator {
     position: absolute;
-    top: -2rem;
+    top: -2.5rem;
     left: 1rem;
     display: flex;
-    gap: 4px;
+    align-items: center;
+    gap: 0.5rem;
     transition: opacity 0.3s ease;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    color: white;
+  }
+
+  .typing-bubble {
+    display: flex;
+    gap: 4px;
+  }
+
+  .typing-text {
+    font-size: 0.875rem;
   }
 
   .typing-indicator.hidden {
@@ -156,16 +249,16 @@
     pointer-events: none;
   }
 
-  .typing-indicator span {
-    width: 8px;
-    height: 8px;
-    background: #1a1a1a;
+  .typing-bubble span {
+    width: 6px;
+    height: 6px;
+    background: white;
     border-radius: 50%;
     animation: bounce 0.8s infinite;
   }
 
-  .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-  .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+  .typing-bubble span:nth-child(2) { animation-delay: 0.2s; }
+  .typing-bubble span:nth-child(3) { animation-delay: 0.4s; }
 
   .message-hidden {
     opacity: 0;
@@ -176,6 +269,30 @@
   .bot-message,
   .error {
     transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .bot-message {
+    line-height: 1.6;
+  }
+
+  .bot-message a {
+    color: #90cdf4;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    transition: opacity 0.2s;
+  }
+
+  .bot-message a:hover {
+    opacity: 0.8;
+  }
+
+  .bot-message ul {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+  }
+
+  .bot-message li {
+    margin: 0.25rem 0;
   }
 
   .error {
