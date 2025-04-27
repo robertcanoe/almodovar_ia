@@ -71,14 +71,9 @@ Este asistente virtual es una iniciativa del Ayuntamiento de Almodóvar del Río
 - Facilitar el acceso a la información municipal
 - Preservar y difundir nuestra historia y cultura
 
-## 📞 Contacto
+## Autor
 
-Para cualquier consulta o sugerencia sobre el asistente virtual:
-
-**Ayuntamiento de Almodóvar del Río**
-- 📍 Plaza de la Constitución, 4
-- 📞 957 713 602
-- 🌐 [www.aytoalmodovardelrio.es](https://www.aytoalmodovardelrio.es)
+Página Web desarrollado por [Roberto Cano Estévez](https://github.com/robertcanoe)
 
 ---
 
