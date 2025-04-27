@@ -1,7 +1,93 @@
 ---
+const stats = {
+  habitantes: "7,998",
+  fundacion: "Siglo VIII",
+  altitud: "163m",
+  ubicacion: "22km de Córdoba"
+};
 ---
 
 <header>
-  <h1>Asistente Virtual de Almodóvar del Río</h1>
-  <p>Tu guía informativo sobre nuestro pueblo</p>
+  <div class="header-content">
+    <h1>Asistente Virtual de Almodóvar del Río</h1>
+    <p>Tu guía informativo sobre nuestro pueblo</p>
+    
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-value">{stats.habitantes}</span>
+        <span class="stat-label">Habitantes</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">{stats.fundacion}</span>
+        <span class="stat-label">Fundación</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">{stats.altitud}</span>
+        <span class="stat-label">Altitud</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">{stats.ubicacion}</span>
+        <span class="stat-label">Distancia</span>
+      </div>
+    </div>
+  </div>
 </header>
+
+<style>
+  .header-content {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  .stat {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.75rem;
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
+    transition: transform 0.2s;
+  }
+
+  .stat:hover {
+    transform: translateY(-2px);
+  }
+
+  .stat-value {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-label {
+    font-size: 0.875rem;
+    opacity: 0.9;
+  }
+
+  @media (max-width: 640px) {
+    .stats {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .stat {
+      padding: 0.5rem;
+    }
+
+    .stat-value {
+      font-size: 1.1rem;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+    }
+  }
+</style>
