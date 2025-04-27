@@ -286,3 +286,109 @@ footer a:hover {
     background-color: #444;
   }
 }
+
+/* Markdown Styles */
+.bot-message {
+  line-height: 1.6;
+}
+
+.bot-message h1,
+.bot-message h2,
+.bot-message h3,
+.bot-message h4 {
+  margin: 1rem 0 0.5rem;
+  color: white;
+}
+
+.bot-message h1 { font-size: 1.5rem; }
+.bot-message h2 { font-size: 1.25rem; }
+.bot-message h3 { font-size: 1.1rem; }
+
+.bot-message p {
+  margin: 0.75rem 0;
+}
+
+.bot-message ul,
+.bot-message ol {
+  margin: 0.75rem 0;
+  padding-left: 1.5rem;
+}
+
+.bot-message li {
+  margin: 0.25rem 0;
+}
+
+.bot-message strong {
+  color: #90cdf4;
+  font-weight: 600;
+}
+
+.bot-message em {
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.bot-message code {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.bot-message pre {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.bot-message pre code {
+  background: none;
+  padding: 0;
+  font-size: 0.9rem;
+  color: #e2e8f0;
+}
+
+.bot-message blockquote {
+  border-left: 4px solid #4a5568;
+  margin: 1rem 0;
+  padding: 0.5rem 0 0.5rem 1rem;
+  font-style: italic;
+  color: #cbd5e0;
+}
+
+.bot-message table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+
+.bot-message th,
+.bot-message td {
+  padding: 0.5rem;
+  border: 1px solid #4a5568;
+  text-align: left;
+}
+
+.bot-message th {
+  background: rgba(255, 255, 255, 0.1);
+  font-weight: 600;
+}
+
+/* Dark mode adjustments for markdown content */
+@media (prefers-color-scheme: dark) {
+  .bot-message {
+    color: #e2e8f0;
+  }
+
+  .bot-message code {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .bot-message pre {
+    background: rgba(0, 0, 0, 0.5);
+  }
+}
