@@ -1,11 +1,55 @@
 ---
+const currentYear = new Date().getFullYear();
 ---
 
 <footer>
-  <p>&copy; {new Date().getFullYear()} Ayuntamiento de Almodóvar del Río. Todos los derechos reservados.</p>
-  <nav>
-    <a href="https://www.aytoalmodovardelrio.es/" target="_blank" rel="noopener noreferrer">Web Oficial</a> |
-    <a href="https://www.castillodealmodovar.com/" target="_blank" rel="noopener noreferrer">Castillo</a> |
-    <a href="tel:+34957713602">Contacto</a>
+  <nav aria-label="Enlaces de interés">
+    <div class="footer-links">
+      <a href="https://www.aytoalmodovardelrio.es/" target="_blank" rel="noopener noreferrer">
+        Web Oficial
+      </a>
+      <a href="https://www.castillodealmodovar.com/" target="_blank" rel="noopener noreferrer">
+        Castillo
+      </a>
+      <a href="https://sede.eprinsa.es/almodovar" target="_blank" rel="noopener noreferrer">
+        Sede Electrónica
+      </a>
+      <a href="tel:+34957713602" aria-label="Llamar al Ayuntamiento">
+        Contacto
+      </a>
+    </div>
   </nav>
+  <p class="copyright">
+    &copy; {currentYear} Ayuntamiento de Almodóvar del Río. Todos los derechos reservados.
+  </p>
 </footer>
+
+<style>
+  footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .copyright {
+    margin: 0;
+    font-size: 0.85rem;
+    opacity: 0.9;
+  }
+
+  @media (max-width: 640px) {
+    .footer-links {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }
+</style>
