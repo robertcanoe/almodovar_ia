@@ -1,5 +1,23 @@
 ---
 import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Asistente Virtual - Almodóvar del Río",
+  description = "Asistente virtual oficial de Almodóvar del Río. Información sobre el pueblo, servicios municipales, turismo, eventos y más."
+} = Astro.props;
+
+// Manejo seguro de la URL canónica
+let canonicalURL;
+try {
+  canonicalURL = new URL(Astro.url.pathname, Astro.site || 'http://localhost:4321');
+} catch {
+  canonicalURL = new URL('http://localhost:4321');
+}
 ---
 
 <!DOCTYPE html>
@@ -7,12 +25,58 @@ import '../styles/global.css';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Asistente virtual oficial de Almodóvar del Río. Información sobre el pueblo, servicios municipales, turismo y más." />
-    <title><slot name="title">Asistente Virtual - Almodóvar del Río</slot></title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <meta name="theme-color" content="#1a1a1a">
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="Almodóvar IA" />
+    <meta name="apple-mobile-web-app-title" content="Almodóvar IA" />
+    <meta name="msapplication-TileColor" content="#1a1a1a" />
+    
+    <!-- SEO -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content="/castillo-background.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="/castillo-background.jpg" />
+    
+    <!-- Preload -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Security -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    
+    <script>
+      // Dark mode handling
+      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+
+      // Service Worker Registration
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(error => {
+            console.log('ServiceWorker registration failed:', error);
+          });
+        });
+      }
+    </script>
   </head>
   <body>
     <slot />
