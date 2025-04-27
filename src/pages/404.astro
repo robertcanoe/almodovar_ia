@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="404: Página no encontrada - Asistente Virtual de Almodóvar del Río">
+  <main class="error-page">
+    <div class="error-content">
+      <h1>404: Página no encontrada</h1>
+      <p>Lo sentimos, la página que buscas no existe.</p>
+      <a href="/" class="home-button">Volver al Inicio</a>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .error-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/castillo-background.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+  }
+
+  .error-content {
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 1rem;
+    backdrop-filter: blur(10px);
+    max-width: 600px;
+    margin: 1rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+
+  .home-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: white;
+    color: black;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: transform 0.2s;
+  }
+
+  .home-button:hover {
+    transform: translateY(-2px);
+  }
+</style>
